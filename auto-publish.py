@@ -1,6 +1,4 @@
-import arcpy, os
-folder=r'C:\Users\sxd\Desktop\publish\mxd'
-database_path=r'C:\Users\sxd\Desktop\publish\gis.sde'
+import arcpy, os, sys
 
 def read_mxd_in_folder(path):
   print '-----------------------------------------'
@@ -22,7 +20,7 @@ def set_datasource(mxd_path,database):
     resource_layers = arcpy.mapping.ListLayers(mxd)
 
     for layer in resource_layers:
-      if layer.isFeatureLayer:
+      if layer.supports("DATASOURCE"):
         layer.replaceDataSource(database,'SDE_WORKSPACE')
     mxd.save()
     del mxd
@@ -45,7 +43,20 @@ def mxd_to_msd(mxd_path):
     print 'khong the chuyen mxd sang msd '+mxd_path
     print e
   print '-------------------//----------------------'
-files = read_mxd_in_folder(folder)
-for file in files:
-  if set_datasource(file,database_path):
-    mxd_to_msd(file)
+
+if __name__ == "__main__":
+    folder = sys.argv[1]
+    database_path = sys.argv[2]
+    if folder is None:
+      raise Exception('Khong xac dinh duoc dan folder')
+    if database_path is None:
+      raise Exception('Khong xac dinh duoc dan database')
+    if os.path.exists(folder) is False:
+      raise Exception(folder + ' khong ton tai')
+    if os.path.exists(database_path) is False:
+      raise Exception(database_path + ' khong ton tai')
+    files = read_mxd_in_folder(folder)
+    for file in files:
+      if set_datasource(file,database_path):
+        mxd_to_msd(file)
+
