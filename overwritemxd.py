@@ -45,12 +45,10 @@ def mxd_to_msd(mxd_path):
   print '-------------------//----------------------'
 
 if __name__ == "__main__":
-    folder = sys.argv[1]
-    if folder is None:
-      folder = os.getcwd()
-    if os.path.exists(folder) is False:
-      raise Exception(folder + ' khong ton tai')
-    files = read_mxd_in_folder(folder)
-    for file in files:
-      mxd_to_msd(file)
+  folder = os.getcwd()
+  if os.path.exists(folder) is False:
+    raise Exception(folder + ' khong ton tai')
+  files = read_mxd_in_folder(folder)
+  for file in files:
+    mxd_to_msd(file)
 
