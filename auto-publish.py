@@ -8,7 +8,7 @@ def read_mxd_in_folder(path):
   for r, d, f in os.walk(path):
       for file in f:
           if '.mxd' in file:
-              files.append(os.path.join(r, file))
+              files.append(os.path.join(r, file.decode('utf8'))
   print '-------------------//----------------------'
   return files
 
@@ -45,12 +45,8 @@ def mxd_to_msd(mxd_path):
   print '-------------------//----------------------'
 
 if __name__ == "__main__":
-    folder = sys.argv[1]
-    database_path = sys.argv[2]
-    if folder is None:
-      raise Exception('Khong xac dinh duoc dan folder')
-    if database_path is None:
-      raise Exception('Khong xac dinh duoc dan database')
+    folder = sos.getcwd()
+    database_path = folder + '/db.sde'
     if os.path.exists(folder) is False:
       raise Exception(folder + ' khong ton tai')
     if os.path.exists(database_path) is False:
