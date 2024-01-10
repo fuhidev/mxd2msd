@@ -8,7 +8,7 @@ def read_mxd_in_folder(path):
   for r, d, f in os.walk(path):
       for file in f:
           if '.mxd' in file:
-              files.append(os.path.join(r, file.decode('utf8'))
+              files.append(os.path.join(r, file.decode('utf8')))
   print '-------------------//----------------------'
   return files
 
