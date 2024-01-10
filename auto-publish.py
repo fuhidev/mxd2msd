@@ -45,7 +45,7 @@ def mxd_to_msd(mxd_path):
   print '-------------------//----------------------'
 
 if __name__ == "__main__":
-    folder = sos.getcwd()
+    folder = os.getcwd()
     database_path = folder + '/db.sde'
     if os.path.exists(folder) is False:
       raise Exception(folder + ' khong ton tai')
